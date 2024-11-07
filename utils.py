@@ -79,9 +79,6 @@ def plot_robot(ax, robot, frame_size):
     safe_zone = Circle((x, y), robot.safe_radius, fill=True, alpha=0.1, color=robot.light_color[:3])
     ax.add_artist(safe_zone)
 
-    # Robot detection zone
-    detection_zone = Circle((x, y), robot.detection_radius, fill=True, alpha=0.05, color=robot.dark_color[:3])
-    ax.add_artist(detection_zone)
 
     # Force vectors
     scale = frame_size * 2  # Adjust this to change the length of the force arrows
@@ -99,4 +96,46 @@ def plot_robot(ax, robot, frame_size):
              head_width=frame_size/4, head_length=frame_size/4, fc='b', ec='b', alpha=0.6)
 
     return ax
+
+def plot_robot_artist(ax, robot, frame_size):
+    artists = []
+    
+    # Extract robot position and orientation
+    x, y = robot.current_coord
+    theta = robot.head_angle
+
+    # Robot body
+    body = Circle((x, y), frame_size/2, fill=True, facecolor=robot.light_color[:3], edgecolor='black')
+    ax.add_artist(body)
+    artists.append(body)
+
+    # Robot direction indicator
+    direction = Wedge((x, y), frame_size/2, np.degrees(theta)-30, np.degrees(theta)+30, width=frame_size/4)
+    ax.add_artist(direction)
+    artists.append(direction)
+
+    # Robot safe zone
+    safe_zone = Circle((x, y), robot.safe_radius, fill=True, alpha=0.1, color=robot.light_color[:3])
+    ax.add_artist(safe_zone)
+    artists.append(safe_zone)
+
+    # Force vectors
+    scale = frame_size * 2  # Adjust this to change the length of the force arrows
+    
+    # Attraction force (green)
+    attraction = ax.arrow(x, y, robot.attraction_force[0]*scale, robot.attraction_force[1]*scale,
+                         head_width=frame_size/4, head_length=frame_size/4, fc='g', ec='g', alpha=0.6)
+    artists.append(attraction)
+    
+    # Repulsion force (red)
+    repulsion = ax.arrow(x, y, robot.repulsion_force[0]*scale, robot.repulsion_force[1]*scale,
+                        head_width=frame_size/4, head_length=frame_size/4, fc='r', ec='r', alpha=0.6)
+    artists.append(repulsion)
+    
+    # Combined force (blue)
+    combined = ax.arrow(x, y, robot.combined_force[0]*scale, robot.combined_force[1]*scale,
+                       head_width=frame_size/4, head_length=frame_size/4, fc='b', ec='b', alpha=0.6)
+    artists.append(combined)
+
+    return artists
 
