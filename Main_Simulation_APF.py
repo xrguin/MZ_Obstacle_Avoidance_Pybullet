@@ -57,8 +57,6 @@ class RobotSimulation:
         self.robot2_id = None
         self.robot3_id = None
 
-        np.random.seed(42)
-
     #%% Setups for visualization using pybullet
     def setup_pybullet(self):
         """Initialize PyBullet simulation"""
@@ -378,6 +376,8 @@ class RobotSimulation:
 
 #%% Set uncertainties, number of running samples in the main function
 def main():
+
+    np.random.seed(42)
     
     params_no_error_robot2 = {
         'var_observation': 0.0,
@@ -395,19 +395,19 @@ def main():
         'var_repulsive': 0.0
     }
     uncertainty_params_robot2 = {
-        'var_observation': 0.1,
+        'var_observation': 0.05,
         'attraction_factor': 1.0,
-        'var_attraction': 0.05,
+        'var_attraction': 0.02,
         'repulsive_factor': 1.0,
-        'var_repulsive': 0.05
+        'var_repulsive': 0.02
     }
 
     uncertainty_params_robot3 = {
-        'var_observation': 0.1,
+        'var_observation': 0.05,
         'attraction_factor': 1.0,
-        'var_attraction': 0.05,
+        'var_attraction': 0.02,
         'repulsive_factor': 1.2,
-        'var_repulsive': 0.05
+        'var_repulsive': 0.02
     }
 
     samples = 1001
@@ -447,4 +447,4 @@ if __name__ == "__main__":
         
         print("Data collection complete. Files saved: uncertain_robot2_trajectories.npy, uncertain_robot3_trajectories.npy")
 
-    
+# %%
