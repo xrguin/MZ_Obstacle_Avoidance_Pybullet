@@ -50,9 +50,9 @@ if simulation:
             # Generate ally robot (robot2)
             robot2 = MbRobot()
             robot2.start = np.random.rand(2) * test_site_size
-            robot2.start = np.array([1.0, 1.0])
+            # robot2.start = np.array([1.0, 1.0])
             robot2.goal = generate_random_coords(1, robot2.start.reshape(1, -1), distance, test_site_size)[0]
-            robot2.goal = np.array([14.0, 14.0])
+            # robot2.goal = np.array([14.0, 14.0])
             robot2.safe_radius = r_a
             robot2.light_color = [0.8, 1, 0.8, 0.2]
             robot2.dark_color = [0.5, 1, 0.5, 0.2]
@@ -66,7 +66,7 @@ if simulation:
             robot3 = MbRobot()
             robot3.start, robot3.goal, intercept_point = generate_intercepting_path(robot2.start, robot2.goal, test_site_size, r_a)
 
-            robot3.start, robot3.goal  = np.array([14.0, 1.0]), np.array([1.0, 14.0])
+            # robot3.start, robot3.goal  = np.array([14.0, 1.0]), np.array([1.0, 14.0])
             
             robot3.safe_radius = r_a
             robot3.head_angle = np.arctan2(robot3.goal[1] - robot3.start[1], robot3.goal[0] - robot3.start[0])

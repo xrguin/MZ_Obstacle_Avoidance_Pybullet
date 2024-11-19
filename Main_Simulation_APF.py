@@ -410,7 +410,7 @@ def main():
         'var_repulsive': 0.02
     }
 
-    samples = 1001
+    samples = 200
     all_poses2 = np.empty((samples), dtype=object)
     all_poses3 = np.empty((samples), dtype=object)
 
